@@ -78,7 +78,7 @@ app.get('/:dbVal', function(req, res){
             
         //find long url stored at dbVal
         var addresses = db.collection('addresses');
-        var longURL =  addresses.find({ext: dbVal}, {url: 1})["ext"];
+        var longURL =  addresses.find({'ext': dbVal}, {url: 1})["ext"];
         //open longURL[dbVal]
         alert(longURL);
         res.redirect("http://www.nytimes.com");
