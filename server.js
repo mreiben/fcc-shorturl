@@ -82,7 +82,7 @@ app.get('/:dbVal', function(req, res){
             "ext": dbVal
         });
         //open longURL[dbVal]
-        res.render(longURL);
+        res.send(longURL);
         db.close();
     });
 });
