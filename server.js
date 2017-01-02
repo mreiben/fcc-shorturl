@@ -25,7 +25,8 @@ app.get('/new/:url*', function(req,res){
     var url = req.params.url;
     
     res.json({
-        "site": url
+        "site": url[0],
+        "other": url
     });  
     
     //check if url is valid
