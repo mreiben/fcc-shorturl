@@ -79,7 +79,7 @@ app.get('/:dbVal', function(req, res){
         //find long url stored at dbVal
         var addresses = db.collection('addresses');
         var longURL =  addresses.find({
-            "ext": dbVal
+            ext: dbVal
         });
         //open longURL[dbVal]
         alert(longURL);
