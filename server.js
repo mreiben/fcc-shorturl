@@ -1,11 +1,15 @@
 var express = require('express');
 var app = express();
+var mongo = require('mongodb').MongoClient;
+
+//uri stored on local host so username and password are not shared in public git repo
+var mongo_url = process.env.MONGOLAB_URI;
 
 app.get('/', function (req, res) {
   res.send("enter 'new/' + a valid URL as a parameter above to get a shorter working link!");
 });
 
-// function created by Diego Cardoso http://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+//function created by Diego Cardoso http://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
 function isURL(str) {
   var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
@@ -35,26 +39,49 @@ app.get('/new/:url(*)', function(req,res){
         });
     } else {
         //if url is valid, create new url and store old and new url in mongodb
-        res.json({
+        var ext = (Math.floor(Math.random()*9000) + 1000) + "";
+        
+        mongo.connect(mongo_url, function(err, db){
+            if (err) throw err;
+            
+            var doc = {
+                url: ext
+            }
+            
+            //add input and new extension to db
+            var addresses = db.collection('addresses');
+            addresses.insert(doc, function(err, data){
+                if (err) throw err;
+                console.log(JSON.stringify(doc));
+            })
+            
+            db.close();
+        });
+        
+        var data = {
             "site": url,
-            "isValid": urlValid
-        }); 
+            "new url": "https://jeiben-shorturl.herokuapp.com/"+ext
+        };
+        
+        res.json(data);
     }
-    
-    
-    
-    
-    //display new json with working new route
-    
-    
+
 });
 
 app.get('/:dbVal', function(req, res){
     var dbVal = req.params.dbVal;
     
     //render url at specified db location
-    
-    
+    mongo.connect(mongo_url, function(err, db){
+        if (err) throw err;
+            
+        //find long url stored at dbVal
+        var addresses = db.collection('addresses');
+        var longURL =  addresses.find(dbVal);
+        //open longURL[dbVal]
+        res.redirect(longURL);
+        db.close();
+    });
 });
 
 
