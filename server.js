@@ -31,7 +31,7 @@ app.get('/new/:url*', function(req,res){
     //check if url is valid
     var urlValid = validURL(url);
     res.json({
-        "is valid?": urlValid
+        "is valid?": "test"
     });
     
     // //if invalid, return json with error
