@@ -22,22 +22,26 @@ app.get('/new/:url(*)', function(req,res){
     
     //check if url is valid
     var urlValid = isURL(url);
-    console.log(isURL("123"));
-    console.log(isURL("http://www.nyt.com"));
     
-    res.json({
-        "site": url,
-        "isValid": urlValid
-    });  
+    // res.json({
+    //     "site": url,
+    //     "isValid": urlValid
+    // });  
 
-    // //if invalid, return json with error
-    // if(urlValid){
-    //     res.send(url + " is a valid url!");
-    // } else {
-    //     res.send(url + " is not a valid url!");
-    // }
+    //if invalid, return json with error
+    if(!urlValid){
+        res.json({
+            "error": "Please enter a valid URL"
+        });
+    } else {
+        //if url is valid, create new url and store old and new url in mongodb
+        res.json({
+            "site": url,
+            "isValid": urlValid
+        }); 
+    }
     
-    //if url is valid, create new url and store old and new url in mongodb
+    
     
     
     //display new json with working new route
