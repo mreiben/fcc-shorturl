@@ -45,8 +45,8 @@ app.get('/new/:url(*)', function(req,res){
             if (err) throw err;
             
             var doc = {
-                url: url,
-                ext: ext
+                oldURL: url,
+                newURL: ext
             }
             
             //add input and new extension to db
@@ -78,7 +78,9 @@ app.get('/:dbVal', function(req, res){
             
         //find long url stored at dbVal
         var addresses = db.collection('addresses');
-        var longURL =  addresses.find({'ext': dbVal}, {url: 1})["ext"];
+        
+        //not working!*****
+        var longURL =  addresses.find({'newURL': dbVal}, {oldURL: 1});
         //open longURL[dbVal]
         alert(longURL);
         res.redirect("http://www.nytimes.com");
