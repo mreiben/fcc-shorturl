@@ -24,12 +24,15 @@ function validURL(str) {
 app.get('/new/:url*', function(req,res){
     var url = req.params.url;
     
-    res.json({
-        "site": url
-    });  
+    // res.json({
+    //     "site": url
+    // });  
     
     //check if url is valid
-    // var urlValid = validURL(url);
+    var urlValid = validURL(url);
+    res.json({
+        "is valid?": urlValid
+    });
     
     // //if invalid, return json with error
     // if(urlValid){
