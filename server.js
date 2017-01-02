@@ -86,6 +86,7 @@ app.get('/:dbVal', function(req, res){
         //res.redirect("http://www.nytimes.com");
         db.close();
     });
+    res.end();
 });
 
 
