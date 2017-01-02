@@ -80,9 +80,9 @@ app.get('/:dbVal', function(req, res){
         var addresses = db.collection('addresses');
         
         //not working!*****
-        var longURL =  addresses.find({'newURL': dbVal}, {oldURL: 1});
+        var longURL =  addresses.find({'newURL': dbVal}, {"oldURL": 1, "_id": 0});
         //open longURL[dbVal]
-        alert(longURL);
+        //alert(longURL);
         res.redirect("http://www.nytimes.com");
         db.close();
     });
