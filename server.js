@@ -83,7 +83,7 @@ app.get('/:dbVal', function(req, res){
         var longURL =  addresses.find({'newURL': dbVal}, {"oldURL": 1, "_id": 0});
         //open longURL[dbVal]
         console.log(longURL);
-        //res.redirect("http://www.nytimes.com");
+        res.redirect("https://jeiben-shorturl.herokuapp.com/5817");
         db.close();
     });
     res.end();
