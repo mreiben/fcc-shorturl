@@ -21,7 +21,7 @@ function validURL(str) {
   }
 }
 
-app.get('/new/:url/*', function(req,res){
+app.get('/new/:url(.+)', function(req,res){
     var url = req.params.url;
     
     res.json({
