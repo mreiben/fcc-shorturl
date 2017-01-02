@@ -45,7 +45,8 @@ app.get('/new/:url(*)', function(req,res){
             if (err) throw err;
             
             var doc = {
-                url: ext
+                url: url,
+                ext: ext
             }
             
             //add input and new extension to db
@@ -77,9 +78,11 @@ app.get('/:dbVal', function(req, res){
             
         //find long url stored at dbVal
         var addresses = db.collection('addresses');
-        var longURL =  addresses.find(dbVal);
+        var longURL =  addresses.find({
+            "ext": dbVal
+        });
         //open longURL[dbVal]
-        res.redirect(longURL);
+        res.redirect(longURL["url"]);
         db.close();
     });
 });
