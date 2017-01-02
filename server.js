@@ -82,7 +82,7 @@ app.get('/:dbVal', function(req, res){
             "ext": dbVal
         });
         //open longURL[dbVal]
-        res.redirect("http://www.nytimes.com");
+        res.render(longURL);
         db.close();
     });
 });
