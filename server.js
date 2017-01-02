@@ -5,27 +5,22 @@ app.get('/', function (req, res) {
   res.send("enter 'new/' + a valid URL as a parameter above to get a shorter working link!");
 });
 
-// function created by @Kravvitz at http://forums.devshed.com/javascript-development-115/regexp-match-url-pattern-493764.html
-function validURL(str) {
-  var pattern = new RegExp('^(https?:\/\/)?'+ // protocol
-    '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
-    '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
-    '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
-    '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
-    '(\#[-a-z\d_]*)?$','i'); // fragment locater
-  if(!pattern.test(str)) {
-    alert("Please enter a valid URL.");
-    return false;
-  } else {
-    return true;
-  }
+// function created by Diego Cardoso http://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+function isURL(str) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return pattern.test(str);
 }
 
 app.get('/new/:url(*)', function(req,res){
     var url = req.params.url;
     
     //check if url is valid
-    var urlValid = validURL(url);
+    var urlValid = isURL(url);
     
     res.json({
         "site": url,
