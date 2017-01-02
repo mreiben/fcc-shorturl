@@ -24,15 +24,19 @@ function validURL(str) {
 app.get('/new/:url*', function(req,res){
     var url = req.params.url;
     
-    //check if url is valid
-    var urlValid = validURL(url);
+    res.json({
+        "site": url
+    });  
     
-    //if invalid, return json with error
-    if(urlValid){
-        res.send(url + " is a valid url!");
-    } else {
-        res.send(url + " is not a valid url!");
-    }
+    //check if url is valid
+    // var urlValid = validURL(url);
+    
+    // //if invalid, return json with error
+    // if(urlValid){
+    //     res.send(url + " is a valid url!");
+    // } else {
+    //     res.send(url + " is not a valid url!");
+    // }
     
     //if url is valid, create new url and store old and new url in mongodb
     
