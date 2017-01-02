@@ -80,10 +80,10 @@ app.get('/:dbVal', function(req, res){
         var addresses = db.collection('addresses');
         
         //not working!*****
-        var longURL =  addresses.find({'newURL': dbVal}, {"oldURL": 1, "_id": 0});
+        var longURL =  addresses.find({newURL: dbVal}, {oldURL: 1, _id: 0});
         //open longURL[dbVal]
         console.log(longURL);
-        res.redirect("https://jeiben-shorturl.herokuapp.com/5817");
+        res.redirect("");
         db.close();
     });
     res.end();
