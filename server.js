@@ -18,9 +18,12 @@ function isURL(str) {
 
 app.get('/new/:url(*)', function(req,res){
     var url = req.params.url;
+    console.log(url);
     
     //check if url is valid
     var urlValid = isURL(url);
+    console.log(isURL("123"));
+    console.log(isURL("http://www.nyt.com"));
     
     res.json({
         "site": url,
